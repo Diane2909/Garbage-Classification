@@ -27,15 +27,12 @@ def transform_images_to_parquet(data_path, train_test):
 
     # Define UDF to process images
     def process_image(filename):
-        try:
-            #print(f'Processing: {directory}/{filename}')
-            img = Image.open(f'{directory}/{filename}')
-            img = img.convert('L')  # Convert to grayscale
-            img = img.resize(file_size)  # Resize for consistency
-            arr = np.array(img).astype(int).tolist()
-            return arr
-        except:
-            return None
+        #print(f'Processing: {directory}/{filename}')
+        img = Image.open(f'{directory}/{filename}')
+        img = img.convert('L')  # Convert to grayscale
+        img = img.resize(file_size)  # Resize for vector
+        arr = np.array(img).astype(int).tolist()
+        return arr
         
     process_image_udf = udf(process_image, ArrayType(ArrayType(IntegerType())))
 
@@ -53,10 +50,10 @@ def transform_images_to_parquet(data_path, train_test):
     df = df.withColumn(f"x_{train_test}", process_image_udf(concat(col("class"), lit("/"), col("file"))))
     df = df.withColumn(f"y_{train_test}", get_one_hot_udf(col("class")))
 
-    df = df.select(f"x_{train_test}", f"y_{train_test}").filter(col(f"x_{train_test}").isNotNull())
+    df = df.select(f"x_{train_test}", f"y_{train_test}", "class").filter(col(f"x_{train_test}").isNotNull())
 
-    # Save as Parquet (optimized format for Spark)
+    # Save as Parquet
     df.write.mode("overwrite").parquet(f"{data_path}/{train_test}_data.parquet")
 
 for data_type in ['train', 'test']:
-    transform_images_to_parquet('data', data_type)
+    transform_images_to_parquet('../data', data_type)
