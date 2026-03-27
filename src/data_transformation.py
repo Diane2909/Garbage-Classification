@@ -6,8 +6,12 @@ from pyspark.sql.types import ArrayType, StructField, StructType, IntegerType, S
 import numpy as np
 
 # Initialize Spark Session
-spark = SparkSession.builder.appName("GarbageClassification").getOrCreate()
-
+#spark = SparkSession.builder.appName("GarbageClassification").getOrCreate()
+spark = SparkSession.builder \
+    .appName("GarbageClassification") \
+    .config("spark.hadoop.fs.permissions.umask-mode", "000") \
+    .config("spark.speculation", "false") \
+    .getOrCreate()
 schema = StructType([
     StructField("class", StringType(), True),
     StructField("file", StringType(), True)
