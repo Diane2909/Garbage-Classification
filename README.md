@@ -38,3 +38,11 @@ Le dataset contient des images classées en différentes catégories de déchets
 - REPLOGLE John
 - TE Mathis
 - ROBILLIARD Diane
+
+<img width="2821" height="1249" alt="image2" src="https://github.com/user-attachments/assets/a5620f7d-1d8d-4623-85ef-70fb3fd4bbf1" />
+<img width="2825" height="1681" alt="image3" src="https://github.com/user-attachments/assets/9ec59ca2-4588-4836-a66c-4601facb335b" />
+<img width="2832" height="1530" alt="image" src="https://github.com/user-attachments/assets/dbef30b7-e73b-4111-bf99-fea528e341e1" />
+<img width="2931" height="1168" alt="image1" src="https://github.com/user-attachments/assets/8fa08e26-f8ef-4fcf-8055-5eef0c61d38b" />
+
+
+  
